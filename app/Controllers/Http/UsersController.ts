@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
+import Ws from 'App/Services/Ws'
 export default class UsersController {
   public async index({response}:HttpContextContract){
         try {
@@ -26,6 +27,7 @@ export default class UsersController {
             user.email = request.input('email')
             user.password = request.input('password')
             await user.save()
+            Ws.io.emit('new:user', user)
             return response.status(201).json({
             message:"Usuario creado",
             data:user
