@@ -5,6 +5,7 @@ export default class UsersController {
   public async index({response}:HttpContextContract){
         try {
             const users = await User.all()
+            Ws.io.emit('update:users', users)
             return response.status(200).json({
             message:"Usuarios encontrados :",
             data:users

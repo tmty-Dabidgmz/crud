@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios en Tiempo Real</title>
+</head>
+<body>
+    <h1>Usuarios en Tiempo Real</h1>
+    <ul id="users-list"></ul>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
+
+        // Escuchar evento de nuevo usuario
+        socket.on('new:user', (user) => {
+            const usersList = document.getElementById('users-list');
+            const listItem = document.createElement('li');
+            listItem.textContent = `Name: ${user.name}, Email: ${user.email}`;
+            usersList.appendChild(listItem);
+        });
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from server');
+        });
+    </script>
+</body>
+</html>

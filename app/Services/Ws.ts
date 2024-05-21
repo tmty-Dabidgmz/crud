@@ -14,8 +14,6 @@ class Ws {
 
     this.booted = true
     this.io = new Server(AdonisServer.instance!)
-
-    // Aquí puedes configurar los eventos del servidor WebSocket
     this.io.on('connection', (socket) => {
       console.log('A user connected')
 
