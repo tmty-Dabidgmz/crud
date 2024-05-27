@@ -5,17 +5,24 @@ export default class UsersController {
   public async index({response}:HttpContextContract){
         try {
             const users = await User.all()
-            Ws.io.emit('update:users', users)
+            // Ws.io.emit('users', users)
+
             return response.status(200).json({
             message:"Usuarios encontrados :",
             data:users
             })
         }
+
         catch (error) {
             return response.status(500).json({
             message:"Error al buscar usuarios",
             data:error
             })
+        }
+
+        finally {
+          console.log('Finally')
+          Ws.io.emit('prueba:emit', 'Prueba')
         }
     }
 
@@ -39,6 +46,12 @@ export default class UsersController {
             message:"Error al crear usuario",
             data:error
             })
+        }
+
+        finally {
+          console.log('Finally')
+          Ws.io.emit('prueba:emit', 'Prueba')
+          Ws.io.emit('usuario:llegado', 'usuario ha llegado');
         }
     }
 
