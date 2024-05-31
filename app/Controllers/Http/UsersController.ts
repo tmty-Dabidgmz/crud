@@ -49,7 +49,7 @@ export default class UsersController {
         }
 
         finally {
-          console.log('Finally')
+          console.log('Si entro el socket')
           Ws.io.emit('prueba:emit', 'Prueba')
           Ws.io.emit('usuario:llegado', 'usuario ha llegado');
         }
